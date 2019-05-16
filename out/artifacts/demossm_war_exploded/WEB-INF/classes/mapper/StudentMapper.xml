@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.StudentMapper">
+    <resultMap id="BaseResultMap" type="model.Student">
+        <id column="uid" jdbcType="INTEGER" property="uid" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="age" jdbcType="INTEGER" property="age" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        uid, name, age
+    </sql>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from student
+    </select>
+    <delete id="deleteByUid" parameterType="model.Student">
+        delete from student
+        where uid = #{uid,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="model.Student">
+        insert into student (uid, name, age)
+        values (#{uid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
+    </insert>
+
+    <update id="updateByUid" parameterType="model.Student">
+        update student
+        set Name = #{name,jdbcType=VARCHAR},
+        Age = #{age,jdbcType=INTEGER},
+        where uid = #{uid,jdbcType=INTEGER}
+    </update>
+</mapper>
